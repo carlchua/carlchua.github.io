@@ -69,7 +69,6 @@ $(function() {
     viewFactor: 0.3,
   });
 
-  sr.reveal('.background');
   sr.reveal('.experience', { viewFactor: 0.2 });
   sr.reveal('.other-projects', { viewFactor: 0.05 });
 });
