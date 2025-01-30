@@ -1,26 +1,18 @@
 # Site settings
-name: Brittany Chiang
-title: Brittany Chiang | Front End Software Engineer
-description: Design-minded front-end software engineer focused on building beautiful interfaces and experiences
-url: https://brittanychiang.com/
+name: Carl Chua
+title: Carl Chua | Software Engineer
+description: Software Engineer. Currently building an AI Platform at BlackRock
+url: https://carlchua.github.io/
 baseurl: ""
-email: brittany.chiang@gmail.com
-cover: https://brittanychiang.com/img/og.png
-logo: https://brittanychiang.com/img/emojis/technologist.png
-resume: https://brittanychiang.com/resume.pdf
+email: carllenard.chua@gmail.com
+resume: https://carlchua.github.io/resume.pdf
 social:
   - title: email
-    url: mailto:brittany.chiang@gmail.com
-  - title: twitter
-    url: https://twitter.com/bchiang7
-  - title: instagram
-    url: https://instagram.com/bchiang7
-  - title: codepen
-    url: http://codepen.io/bchiang7
+    url: mailto:carllenard.chua@gmail.com
   - title: github
-    url: https://github.com/bchiang7
+    url: https://github.com/carlchua
   - title: linkedin
-    url: https://www.linkedin.com/in/bchiang7
+    url: https://www.linkedin.com/in/carl-chua/
 
 # Build settings
 markdown: kramdown
