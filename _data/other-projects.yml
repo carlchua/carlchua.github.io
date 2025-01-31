@@ -5,14 +5,12 @@
   description: Final paper for CS285 (Deep Reinforcement Learning) Fall 2021 at UC Berkeley.
   used:
     - thing: Reinforcement Learning
-    - thing: PyTorch
-    - thing: Numpy
 
 - name: NBA Predictor
   url: https://github.com/carlchua/nbapredictor
   description: A predictor for NBA games
   used:
     - thing: Machine Learning
-    - thing: Tensorflow
-    - thing: Numpy
+    - thing: Data Science
+    - thing: Web Scraping
     - thing: Basketball IQ &#x1F3C0;
