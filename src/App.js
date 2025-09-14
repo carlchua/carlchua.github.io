@@ -6,6 +6,7 @@ import TableOfContents from './components/TableOfContents';
 import Intro from './components/Intro';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import RandomStuff from './components/RandomStuff';
 import NotFound from './components/NotFound';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
                 <Intro />
                 <Experience />
                 <Projects />
+                <RandomStuff />
               </>
             } />
             <Route path="*" element={<NotFound />} />

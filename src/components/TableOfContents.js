@@ -4,7 +4,8 @@ import './TableOfContents.css';
 const sections = [
   { id: 'intro', label: 'Home' },
   { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' }
+  { id: 'projects', label: 'Projects' },
+  { id: 'random-stuff', label: 'Random Stuff' }
 ];
 
 const TableOfContents = () => {
@@ -41,9 +42,10 @@ const TableOfContents = () => {
         }
       }
 
+      // TODO: Change this when Random Stuff gets more content.
       // Additional check: if we're near the bottom of the page, highlight the last section
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-        currentSection = 'projects';
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+        currentSection = 'random-stuff';
       }
 
       setActiveSection(currentSection);
