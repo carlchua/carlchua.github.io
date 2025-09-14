@@ -41,7 +41,7 @@
   width: 62px;
   height: 28px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #87CEEB 0%, #4169E1 100%);
+  background: linear-gradient(135deg, #60b8db 0%, #104e96 100%);
   overflow: hidden;
   transition: background 0.3s ease;
 }

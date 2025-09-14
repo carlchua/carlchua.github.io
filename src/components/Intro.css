@@ -2,13 +2,13 @@
 .intro-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
-  padding: 80px 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+  padding: 80px 20px 40px 20px;
+  max-width: none;
+  margin: 0;
+  text-align: left;
 }
 
 .intro-content {
@@ -21,12 +21,12 @@
   font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 400;
   margin-bottom: 2rem;
-  color: #4169E1;
+  color: #104e96;
   transition: color 0.3s ease;
 }
 
 body.dark-theme .intro-name {
-  color: #87CEEB;
+  color: #60b8db;
 }
 
 .intro-description {
@@ -35,7 +35,7 @@ body.dark-theme .intro-name {
   color: #666;
   transition: color 0.3s ease;
   text-align: left;
-  padding: 0 1rem;
+  padding: 0;
 }
 
 body.dark-theme .intro-description {
@@ -48,14 +48,14 @@ body.dark-theme .intro-description {
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 2rem;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .intro-btn {
   display: inline-block;
   padding: 0.7rem 1.5rem;
   border-radius: 6px;
-  background: #4169E1;
+  background: #104e96;
   color: #fff;
   font-weight: 500;
   font-size: 1rem;
@@ -74,7 +74,7 @@ body.dark-theme .intro-description {
 }
 
 body.dark-theme .intro-btn {
-  background: #87CEEB;
+  background: #60b8db;
   color: #1a1a1a;
   box-shadow: 0 2px 8px rgba(135, 206, 235, 0.08);
 }
@@ -101,7 +101,7 @@ body.dark-theme .intro-btn:focus {
 /* Responsive design */
 @media (max-width: 768px) {
   .intro-section {
-    padding: 60px 15px;
+    padding: 60px 15px 30px 15px;
   }
   
   .intro-name {
@@ -116,7 +116,7 @@ body.dark-theme .intro-btn:focus {
 
 @media (max-width: 480px) {
   .intro-section {
-    padding: 40px 10px;
+    padding: 40px 10px 20px 10px;
   }
   
   .intro-name {
@@ -125,7 +125,7 @@ body.dark-theme .intro-btn:focus {
   
   .intro-description {
     padding: 0;
-    text-align: center;
+    text-align: left;
   }
   
   .intro-buttons {

@@ -1,12 +1,12 @@
 import React from 'react';
-import './Experience.css';
+import './Section.css';
 
 const Experience = () => {
   return (
-    <section className="experience-section">
+    <section className="section-container" data-section="experience">
       <h2 className="section-title">Experience</h2>
-      <div className="experience-content">
-        <div className="experience-item">
+      <div className="section-content">
+        <div className="section-item">
           <h3 className="job-title">Software Engineer</h3>
           <a href="https://www.blackrock.com/us/individual" className="company" target="_blank" rel="noopener noreferrer">BlackRock</a>
           <p className="duration">August 2022 - Present</p>
@@ -17,7 +17,7 @@ const Experience = () => {
           </ul>
         </div>
         
-        <div className="experience-item">
+        <div className="section-item">
           <h3 className="job-title">ML Engineer</h3>
           <a href="https://rimble.io/" className="company" target="_blank" rel="noopener noreferrer">Rimble Esports Analytics</a>
           <p className="duration">Summer 2021</p>

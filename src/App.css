@@ -32,10 +32,62 @@ body.dark-theme {
 .App {
   min-height: 100vh;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
 }
 
 /* Main content */
 .main-content {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  margin-left: 200px; /* Space for TOC */
+  padding: 0 2rem;
+}
+
+/* Responsive adjustments for main content */
+@media (max-width: 1200px) {
+  .App {
+    padding-top: 1.5rem;
+  }
+  
+  .main-content {
+    margin-left: 180px;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 160px;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .App {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    padding-top: 70px;
+  }
+  
+  .main-content {
+    padding: 0 0.5rem;
+  }
 }

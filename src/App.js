@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import ThemeToggle from './components/ThemeToggle';
+import TableOfContents from './components/TableOfContents';
 import Intro from './components/Intro';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
@@ -37,6 +38,7 @@ function App() {
     <Router>
       <div className="App">
         <ThemeToggle darkMode={darkMode} toggleTheme={toggleTheme} />
+        <TableOfContents />
         <main className="main-content">
           <Routes>
             <Route path="/" element={

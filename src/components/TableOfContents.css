@@ -1,0 +1,123 @@
+/* Table of Contents Styles */
+.table-of-contents {
+  position: fixed;
+  top: 50%;
+  left: calc(50% - 500px); /* Position to the left of the centered content */
+  transform: translateY(-50%);
+  z-index: 900;
+}
+
+.toc-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  min-width: 120px;
+}
+
+.toc-item:hover {
+  color: #104e96;
+  background: rgba(16, 78, 150, 0.05);
+}
+
+.toc-item.active {
+  color: #104e96;
+  background: rgba(16, 78, 150, 0.1);
+  border-left-color: #104e96;
+  font-weight: 600;
+}
+
+body.dark-theme .toc-item {
+  color: #cccccc;
+}
+
+body.dark-theme .toc-item:hover {
+  color: #60b8db;
+  background: rgba(96, 184, 219, 0.1);
+}
+
+body.dark-theme .toc-item.active {
+  color: #60b8db;
+  background: rgba(96, 184, 219, 0.15);
+  border-left-color: #60b8db;
+}
+
+.toc-label {
+  white-space: nowrap;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1400px) {
+  .table-of-contents {
+    left: calc(50% - 450px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .table-of-contents {
+    left: calc(50% - 400px);
+  }
+  
+  .toc-item {
+    min-width: 100px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .table-of-contents {
+    left: calc(50% - 380px);
+  }
+}
+
+@media (max-width: 768px) {
+  .table-of-contents {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .toc-container {
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  .toc-item {
+    padding: 0.5rem 0.75rem;
+    min-width: auto;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-of-contents {
+    top: 1.5rem;
+  }
+  
+  .toc-container {
+    gap: 0.25rem;
+  }
+  
+  .toc-item {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+  }
+}

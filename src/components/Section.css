@@ -1,33 +1,33 @@
 /* Experience section */
-.experience-section {
-  padding: 80px 20px;
-  max-width: 800px;
-  margin: 0 auto;
+.section-container {
+  padding: 40px 20px;
+  max-width: none;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .section-title {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   font-weight: 400;
-  text-align: center;
+  text-align: left;
   margin-bottom: 3rem;
-  color: #4169E1;
+  color: #104e96;
   transition: color 0.3s ease;
 }
 
 body.dark-theme .section-title {
-  color: #87CEEB;
+  color: #60b8db;
 }
 
-.experience-content {
+.section-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.experience-item {
+.section-item {
   padding: 2rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.1);
@@ -36,17 +36,17 @@ body.dark-theme .section-title {
   transition: all 0.3s ease;
 }
 
-.experience-item:hover {
+.section-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark-theme .experience-item {
+body.dark-theme .section-item {
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-body.dark-theme .experience-item:hover {
+body.dark-theme .section-item:hover {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -65,7 +65,7 @@ body.dark-theme .job-title {
 .company {
   font-size: 1.1rem;
   font-weight: 500;
-  color: #4169E1;
+  color: #104e96;
   margin-bottom: 0.3rem;
   transition: color 0.3s ease;
   text-decoration: none;
@@ -78,7 +78,7 @@ body.dark-theme .job-title {
 }
 
 body.dark-theme .company {
-  color: #87CEEB;
+  color: #60b8db;
 }
 
 body.dark-theme .company:hover {
@@ -130,7 +130,7 @@ body.dark-theme .description {
   display: inline-block;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
-  background: #4169E1;
+  background: #104e96;
   color: #fff !important;
   font-weight: 500;
   font-size: 0.9rem;
@@ -149,7 +149,7 @@ body.dark-theme .description {
 }
 
 body.dark-theme .project-link {
-  background: #87CEEB;
+  background: #60b8db;
   color: #1a1a1a !important;
   box-shadow: 0 2px 8px rgba(135, 206, 235, 0.1);
 }
@@ -162,11 +162,11 @@ body.dark-theme .project-link:hover {
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .experience-section {
-    padding: 60px 15px;
+  .section-container {
+    padding: 30px 15px;
   }
-  
-  .experience-item {
+
+  .section-item {
     padding: 1.5rem;
   }
   
@@ -187,11 +187,11 @@ body.dark-theme .project-link:hover {
 }
 
 @media (max-width: 480px) {
-  .experience-section {
-    padding: 40px 10px;
+  .section-container {
+    padding: 20px 10px;
   }
-  
-  .experience-item {
+
+  .section-item {
     padding: 1rem;
   }
 }
