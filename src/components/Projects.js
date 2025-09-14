@@ -1,0 +1,29 @@
+import React from 'react';
+import '../components/Experience.css';
+
+const Projects = () => {
+  return (
+    <section className="experience-section">
+      <h2 className="section-title">Projects</h2>
+      <div className="experience-content">
+        <div className="experience-item">
+          <h3 className="job-title">Dynamic Obstacles Avoidance in Coverage Path Planning Via Deep Reinforcement Learning</h3>
+            Final paper for CS285 (Deep Reinforcement Learning) Fall 2021 at UC Berkeley.
+          <div className="project-btn-group">
+            <a href="/assets/cs285_paper.pdf" className="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a href="https://github.com/carlchua/cs285_rl_files" className="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div className="experience-item">
+          <h3 className="job-title">NBA Predictor</h3>
+            A predictor for NBA games &#x1F3C0;
+          <div className="project-btn-group">
+            <a href="https://github.com/carlchua/nbapredictor" className="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Projects;
