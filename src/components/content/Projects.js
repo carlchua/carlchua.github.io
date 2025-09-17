@@ -1,5 +1,4 @@
-import React from 'react';
-import './Section.css';
+import '../../styles/content/Section.css';
 
 const Projects = () => {
   return (
@@ -10,7 +9,7 @@ const Projects = () => {
           <h3 className="sub-title">Dynamic Obstacles Avoidance in Coverage Path Planning Via Deep Reinforcement Learning</h3>
             Final paper for CS285 (Deep Reinforcement Learning) Fall 2021 at UC Berkeley.
           <div className="project-btn-group">
-            <a href="/assets/cs285_paper.pdf" className="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a href="/assets/docs/cs285_paper.pdf" className="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
             <a href="https://github.com/carlchua/cs285_rl_files" className="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </div>

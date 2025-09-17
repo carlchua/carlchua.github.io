@@ -1,7 +1,7 @@
-import React from 'react';
-import './Section.css';
+import '../../styles/content/Section.css';
 
-const RandomStuff = () => {
+function RandomStuff() {
+
   return (
     <section className="section-container" data-section="random-stuff">
       <h2 className="section-title">Random Stuff</h2>

@@ -1,5 +1,4 @@
-import React from 'react';
-import './Section.css';
+import '../../styles/content/Section.css';
 
 const Experience = () => {
   return (

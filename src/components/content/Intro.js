@@ -1,5 +1,4 @@
-import React from 'react';
-import './Intro.css';
+import '../../styles/content/Intro.css';
 
 const Intro = () => {
   return (
@@ -13,7 +12,7 @@ const Intro = () => {
           for a good Malaysian restaurant).
         </p>
         <div className="intro-buttons">
-          <a href="/assets/resume.pdf" className="intro-btn" target="_blank" rel="noopener noreferrer">Resume</a>
+          <a href="/assets/docs/resume.pdf" className="intro-btn" target="_blank" rel="noopener noreferrer">Resume</a>
           <a href="https://github.com/carlchua" className="intro-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="mailto:carllenard.chua@gmail.com" className="intro-btn">Email</a>
           <a href="https://www.linkedin.com/in/carl-chua/" className="intro-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>

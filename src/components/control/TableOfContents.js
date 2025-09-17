@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import './TableOfContents.css';
+import { useState, useEffect } from 'react';
+import '../../styles/control/TableOfContents.css';
 
 const sections = [
   { id: 'intro', label: 'Home' },

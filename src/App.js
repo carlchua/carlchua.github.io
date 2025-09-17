@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import ThemeToggle from './components/control/ThemeToggle';
+import TableOfContents from './components/control/TableOfContents';
+import Intro from './components/content/Intro';
+import Experience from './components/content/Experience';
+import Projects from './components/content/Projects';
+import RandomStuff from './components/content/RandomStuff';
+import NotFound from './components/common/NotFound';
+
 import './App.css';
-import ThemeToggle from './components/ThemeToggle';
-import TableOfContents from './components/TableOfContents';
-import Intro from './components/Intro';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import RandomStuff from './components/RandomStuff';
-import NotFound from './components/NotFound';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
