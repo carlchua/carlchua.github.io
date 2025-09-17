@@ -1,0 +1,59 @@
+.paper-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0rem;
+  margin: 0rem;
+}
+
+.paper-button {
+  cursor: pointer;
+  width: 8rem;
+  height: 8rem;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.paper-sprite {
+  display: block;
+  width: 8rem;
+  height: 8rem;
+  object-fit: fill;
+  pointer-events: none;
+  transition: filter 0.2s ease;
+}
+
+.paper-button:hover .paper-sprite {
+  filter: brightness(1.1);
+}
+
+/* Prevent text selection and drag on mobile */
+.paper-button,
+.paper-button-hint,
+.paper-sprite {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  .paper-sprite {
+    width: 8rem;
+    height: 8rem;
+  }
+  
+  .paper-button {
+    width: 8rem;
+    height: 8rem;
+  }
+}
