@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-
+import { Shake } from 'reshake';
 import '../../styles/game/PaperButton.css';
 import '../../styles/game/PaperAnimal.css';
 
@@ -8,6 +8,7 @@ export const animalDict = {
         movement_frames: 14,
         play_frames: 10,
         play_color: '#00d9ffff',
+        shake: true
     },
 };
 
@@ -32,11 +33,12 @@ export default function PaperAnimal({ type, x_pos, y_pos }) {
         if (!isPlaying) {
             setIsPlaying(true);
             console.log(`${currentImageSrc}`);
+            
             intervalRef.current = setInterval(() => {
                 setCurrentPlayFrame(
                     (prevFrame) => (prevFrame + 1) % totalPlayFrames
                 );
-            }, 100); // Change frame every 150ms
+            }, 100);
         }
     };
 
@@ -100,7 +102,10 @@ export default function PaperAnimal({ type, x_pos, y_pos }) {
     //////////////////////  MOVEMENT CODE  ///////////////////////////
     // Random initial direction and speed
     const [velocity, setVelocity] = useState({
-        x: (Math.random() - 0.5) * 4, // Random speed between -2 and 2
+        // Move faster in the x direction
+        x: Math.random() < 0.5 
+            ? -Math.random() * 2 - 1
+            : Math.random() * 2 + 1,
         y: (Math.random() - 0.5) * 4,
     });
 
@@ -184,22 +189,29 @@ export default function PaperAnimal({ type, x_pos, y_pos }) {
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
             >
-                <img
-                    src={currentImageSrc}
-                    alt={`${type}`}
-                    className="paper-sprite"
-                    draggable={false}
-                    style={{
-                        transform: velocity.x < 0 ? 'scaleX(-1)' : 'scaleX(1)', // Flip when moving left
-                        transition: 'transform 0.1s ease', // Smooth flip transition
-                        filter: isPlaying
-                            ? `drop-shadow(0 0 20px ${animalDict[type].play_color}) brightness(1.3)`
-                            : 'none',
-                        animation: isPlaying
-                            ? 'playingBounce 0.5s ease-in-out infinite alternate'
-                            : 'none',
-                    }}
-                />
+                <Shake
+                    h={animalDict[type].shake && isPlaying ? 0 : 0}  
+                    v={animalDict[type].shake && isPlaying ? 20 : 0}  
+                    r={animalDict[type].shake && isPlaying ? 20 : 0}  
+                    dur={1500}    // Duration of each shake
+                    int={20}     // Interval between shakes  
+                    max={100}    // Max number of shakes
+                    fixed={false} // Don't use fixed positioning
+                >
+                    <img
+                        src={currentImageSrc}
+                        alt={`${type}`}
+                        className="paper-sprite"
+                        draggable={false}
+                        style={{
+                            transform: velocity.x < 0 ? 'scaleX(-1)' : 'scaleX(1)', // Flip when moving left
+                            transition: 'transform 0.1s ease', // Smooth flip transition
+                            animation: isPlaying
+                                ? 'playingBounce 0.5s ease-in-out infinite alternate'
+                                : 'none',
+                        }}
+                    />
+                </Shake>
             </button>
         </div>
     );

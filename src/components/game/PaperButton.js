@@ -44,7 +44,6 @@ function PaperButton({ onSpawn }) {
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         timer = setTimeout(() => {
-            console.log('spawned at', centerX, centerY);
             onSpawn({ x_pos: centerX, y_pos: centerY }); // spawn after hold
         }, 3000);
     };
