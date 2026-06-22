@@ -2,11 +2,11 @@
 .not-found-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
-  padding: 20px;
-  text-align: center;
+  padding: 20px 0;
+  text-align: left;
   background: inherit;
 }
 
@@ -18,43 +18,31 @@
 
 .name {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 2rem;
-  color: #104e96;
+  color: var(--color-accent);
   transition: color 0.3s ease;
-}
-
-body.dark-theme .name {
-  color: #60b8db;
 }
 
 .not-found-content h1 {
   font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--color-text);
   transition: color 0.3s ease;
-}
-
-body.dark-theme .not-found-content h1 {
-  color: #ffffff;
 }
 
 .not-found-content h2 {
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   font-weight: 400;
   line-height: 1.5;
-  color: #666;
+  color: var(--color-text-muted);
   transition: color 0.3s ease;
   margin-bottom: 0;
 }
 
-body.dark-theme .not-found-content h2 {
-  color: #cccccc;
-}
-
 .not-found-content h2 a {
-  color: #104e96;
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -62,17 +50,8 @@ body.dark-theme .not-found-content h2 {
 }
 
 .not-found-content h2 a:hover {
-  color: #2E4BC6;
-  border-bottom-color: #2E4BC6;
-}
-
-body.dark-theme .not-found-content h2 a {
-  color: #60b8db;
-}
-
-body.dark-theme .not-found-content h2 a:hover {
-  color: #98D8E8;
-  border-bottom-color: #98D8E8;
+  color: var(--color-accent-hover);
+  border-bottom-color: var(--color-accent-hover);
 }
 
 /* Fade in animation */
@@ -92,7 +71,7 @@ body.dark-theme .not-found-content h2 a:hover {
   .not-found-container {
     padding: 15px;
   }
-  
+
   .name {
     margin-bottom: 1.5rem;
   }
@@ -102,7 +81,7 @@ body.dark-theme .not-found-content h2 a:hover {
   .not-found-container {
     padding: 10px;
   }
-  
+
   .name {
     margin-bottom: 1rem;
   }

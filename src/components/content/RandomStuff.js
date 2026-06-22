@@ -49,10 +49,8 @@ export default function RandomStuff() {
     }, []); // Empty dependency array since we use state updater functions
 
     return (
-        <section className="section-container" data-section="random-stuff">
-            <h2 className="section-title">Random Stuff</h2>
+        <section className="section-container random-section" data-section="random-stuff">
             <div className="section-content">
-                <div>fold the paper to build your zoo. inspired by this <a href="https://en.wikipedia.org/wiki/The_Paper_Menagerie">story</a>.</div>
                 <PaperButton onSpawn={spawnAnimal} />
                 
                 {currentAnimals.map((a) => (

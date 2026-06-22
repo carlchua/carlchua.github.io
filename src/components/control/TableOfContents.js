@@ -4,6 +4,7 @@ import '../../styles/control/TableOfContents.css';
 const sections = [
     { id: 'intro', label: 'Home' },
     { id: 'experience', label: 'Experience' },
+    { id: 'education', label: 'Education' },
     { id: 'projects', label: 'Projects' },
     { id: 'random-stuff', label: 'Random Stuff' },
 ];
@@ -21,18 +22,15 @@ const TableOfContents = () => {
 
             if (sectionElements.length === 0) return;
 
-            // Get the current scroll position
             const scrollPosition = window.scrollY + window.innerHeight / 3;
 
             let currentSection = 'intro';
 
-            // Check each section to see which one we're currently in
             for (let i = 0; i < sectionElements.length; i++) {
                 const section = sectionElements[i];
                 const sectionTop = section.offsetTop;
                 const sectionBottom = sectionTop + section.offsetHeight;
 
-                // If we're within this section's bounds
                 if (
                     scrollPosition >= sectionTop &&
                     scrollPosition < sectionBottom
@@ -41,7 +39,6 @@ const TableOfContents = () => {
                     break;
                 }
 
-                // Special case: if we're past all sections, highlight the last one
                 if (
                     i === sectionElements.length - 1 &&
                     scrollPosition >= sectionTop
@@ -50,8 +47,6 @@ const TableOfContents = () => {
                 }
             }
 
-            // TODO: Change this when Random Stuff gets more content.
-            // Additional check: if we're near the bottom of the page, highlight the last section
             if (
                 window.innerHeight + window.scrollY >=
                 document.body.offsetHeight - 10
@@ -63,7 +58,7 @@ const TableOfContents = () => {
         };
 
         window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Check initial state
+        handleScroll();
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -71,13 +66,11 @@ const TableOfContents = () => {
     const scrollToSection = (sectionId) => {
         const element = document.querySelector(`[data-section="${sectionId}"]`);
         if (element) {
-            const offsetTop = element.offsetTop - 100; // Account for any fixed headers/margins
+            const offsetTop = element.offsetTop - 100;
             window.scrollTo({
                 top: Math.max(0, offsetTop),
                 behavior: 'smooth',
             });
-
-            // Immediately update the active section to provide instant feedback
             setActiveSection(sectionId);
         }
     };

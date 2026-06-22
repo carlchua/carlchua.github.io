@@ -5,6 +5,7 @@ import ThemeToggle from './components/control/ThemeToggle';
 import TableOfContents from './components/control/TableOfContents';
 import Intro from './components/content/Intro';
 import Experience from './components/content/Experience';
+import Education from './components/content/Education';
 import Projects from './components/content/Projects';
 import RandomStuff from './components/content/RandomStuff';
 import NotFound from './components/common/NotFound';
@@ -50,6 +51,7 @@ function App() {
                                 <>
                                     <Intro />
                                     <Experience />
+                                    <Education />
                                     <Projects />
                                     <RandomStuff />
                                 </>

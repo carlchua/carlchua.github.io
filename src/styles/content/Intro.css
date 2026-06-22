@@ -2,88 +2,68 @@
 .intro-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 80px 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: auto;
+  padding: clamp(4rem, 14vh, 6rem) 0 2rem;
+  width: 100%;
+  text-align: left;
 }
 
 .intro-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  width: 100%;
 }
 
 .intro-name {
   font-size: clamp(2rem, 6vw, 3.5rem);
-  font-weight: 400;
-  margin-bottom: 2rem;
-  color: #104e96;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: var(--color-accent);
   transition: color 0.3s ease;
-}
-
-body.dark-theme .intro-name {
-  color: #60b8db;
 }
 
 .intro-description {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   line-height: 1.6;
-  color: #666;
+  color: var(--color-text-muted);
   transition: color 0.3s ease;
   text-align: left;
-  padding: 0 1rem;
+  padding: 0;
+  max-width: 65ch;
 }
 
-body.dark-theme .intro-description {
-  color: #cccccc;
-}
-
-/* Buttons section */
 .intro-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 2rem;
-  justify-content: center;
+  margin-top: 0.5rem;
+  justify-content: flex-start;
 }
 
 .intro-btn {
   display: inline-block;
   padding: 0.7rem 1.5rem;
-  border-radius: 6px;
-  background: #104e96;
-  color: #fff;
+  border-radius: 0;
+  background: var(--color-accent);
+  color: var(--color-btn-text);
   font-weight: 500;
   font-size: 1rem;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(65, 105, 225, 0.08);
-  border: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-accent-hover);
 }
 
 .intro-btn:hover,
 .intro-btn:focus {
-  background: #2E4BC6;
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(65, 105, 225, 0.15);
+  background: var(--color-accent-hover);
+  color: var(--color-btn-text);
+  box-shadow: var(--shadow-hover);
   text-decoration: none;
-}
-
-body.dark-theme .intro-btn {
-  background: #60b8db;
-  color: #1a1a1a;
-  box-shadow: 0 2px 8px rgba(135, 206, 235, 0.08);
-}
-
-body.dark-theme .intro-btn:hover,
-body.dark-theme .intro-btn:focus {
-  background: #98D8E8;
-  color: #1a1a1a;
-  box-shadow: 0 4px 16px rgba(135, 206, 235, 0.15);
+  transform: translateY(-2px);
 }
 
 /* Fade in animation */
@@ -101,39 +81,23 @@ body.dark-theme .intro-btn:focus {
 /* Responsive design */
 @media (max-width: 768px) {
   .intro-section {
-    padding: 60px 15px;
+    padding: 3.5rem 0 1.5rem;
   }
-  
+
   .intro-name {
     font-size: clamp(1.8rem, 8vw, 2.8rem);
-    margin-bottom: 1.5rem;
-  }
-  
-  .intro-description {
-    padding: 0 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .intro-section {
-    padding: 40px 10px;
+    padding: 3rem 0 1.25rem;
   }
-  
-  .intro-name {
-    margin-bottom: 1rem;
-  }
-  
-  .intro-description {
-    padding: 0;
-    text-align: center;
-  }
-  
+
   .intro-buttons {
     gap: 0.7rem;
-    margin-top: 1.2rem;
-    justify-content: center;
   }
-  
+
   .intro-btn {
     font-size: 0.98rem;
     padding: 0.7rem 1.2rem;

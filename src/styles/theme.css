@@ -1,0 +1,36 @@
+:root {
+  --color-bg: #F5F0E8;
+  --color-surface: #FAF7F2;
+  --color-text: #3D3229;
+  --color-text-muted: #6B5E52;
+  --color-accent: #5C6B4F;
+  --color-accent-hover: #4A5740;
+  --color-border: rgba(61, 50, 41, 0.12);
+  --shadow-soft: 0 4px 20px rgba(61, 50, 41, 0.08);
+  --shadow-hover: 0 8px 28px rgba(61, 50, 41, 0.12);
+  --color-btn-text: #FAF7F2;
+  --color-focus: #5C6B4F;
+  --color-toc-hover-bg: rgba(92, 107, 79, 0.06);
+  --color-toc-active-bg: rgba(92, 107, 79, 0.1);
+  --toggle-track-light: linear-gradient(135deg, #E8E0D4 0%, #5C6B4F 100%);
+  --toggle-track-dark: linear-gradient(135deg, #2A241E 0%, #1C1814 100%);
+  --paper-grain-opacity: 0.03;
+}
+
+body.dark-theme {
+  --color-bg: #111916;
+  --color-surface: #1C2822;
+  --color-text: #E6EFEA;
+  --color-text-muted: #96A89E;
+  --color-accent: #74A484;
+  --color-accent-hover: #8FBA9E;
+  --color-border: rgba(150, 168, 158, 0.12);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --color-btn-text: #111916;
+  --color-focus: #74A484;
+  --color-toc-hover-bg: rgba(116, 164, 132, 0.1);
+  --color-toc-active-bg: rgba(116, 164, 132, 0.16);
+  --toggle-track-dark: linear-gradient(135deg, #243830 0%, #111916 100%);
+  --paper-grain-opacity: 0;
+}

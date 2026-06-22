@@ -5,86 +5,100 @@
   box-sizing: border-box;
 }
 
+:root {
+  --font-family: 'Figtree', system-ui, sans-serif;
+  --page-padding-x: clamp(1rem, 3vw, 2.5rem);
+  --content-max-width: clamp(640px, 78vw, 1100px);
+  --toc-width: 130px;
+  --toc-gap: clamp(28px, 3.5vw, 52px);
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
-  background-color: #ffffff;
-  color: #333333;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   min-height: 100vh;
 }
 
-/* Dark theme */
-body.dark-theme {
-  background-color: #1a1a1a;
-  color: #ffffff;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: var(--paper-grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
-/* App container */
+/* Dual accent lines under page/section titles */
+.intro-name::after,
+.section-title::after {
+  content: '';
+  display: block;
+  width: 2.75rem;
+  height: 9px;
+  margin-top: 0.7rem;
+  background:
+    linear-gradient(var(--color-border), var(--color-border)) 0 0 / 2.75rem 2px
+      no-repeat,
+    linear-gradient(var(--color-border), var(--color-border)) 0 6px / 1.5rem 2px
+      no-repeat;
+  opacity: 0.9;
+}
+
+/* App container — left-aligned page shell */
 .App {
   min-height: 100vh;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 2rem;
+  padding: 2rem var(--page-padding-x) 0;
 }
 
 /* Main content */
 .main-content {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 800px;
-  margin-left: 200px; /* Space for TOC */
-  padding: 0 2rem;
+  width: min(
+    var(--content-max-width),
+    calc(100% - var(--toc-width) - var(--toc-gap))
+  );
+  max-width: 100%;
+  margin-left: calc(var(--toc-width) + var(--toc-gap));
 }
 
-/* Responsive adjustments for main content */
 @media (max-width: 1200px) {
   .App {
     padding-top: 1.5rem;
   }
-  
-  .main-content {
-    margin-left: 180px;
-    padding: 0 1.5rem;
-  }
 }
 
 @media (max-width: 1024px) {
-  .main-content {
-    margin-left: 160px;
-    padding: 0 1rem;
+  :root {
+    --toc-width: 120px;
   }
 }
 
 @media (max-width: 768px) {
   .App {
-    flex-direction: column;
-    align-items: center;
-    padding-top: 0; /* Remove top padding since we have fixed header */
+    padding-top: 0;
   }
-  
+
   .main-content {
     margin-left: 0;
-    margin-top: 80px; /* Account for fixed TOC header */
-    padding: 0 1rem;
-    max-width: 100%;
+    margin-top: 80px;
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .main-content {
-    margin-top: 70px; /* Slightly less margin for smaller screens */
-    padding: 0 0.5rem;
+    margin-top: 70px;
   }
 }
