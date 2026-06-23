@@ -99,15 +99,21 @@
     width: auto;
     flex-shrink: 0;
     font-size: 0.75rem;
-    border-bottom: 2px solid transparent;
-  }
-
-  .toc-item.active {
-    border-bottom-color: var(--color-accent);
+    border-radius: 0;
   }
 
   .toc-item.active::before {
     display: none;
+  }
+
+  .toc-item.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--color-accent);
   }
 }
 

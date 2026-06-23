@@ -33,7 +33,15 @@
 
 .section-content a:hover {
   color: var(--color-accent-hover);
+}
+
+.description a {
+  font-weight: 500;
+}
+
+.description a:hover {
   text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .section-item {
@@ -108,19 +116,20 @@
 
 .project-link {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0;
   background: var(--color-accent);
   color: var(--color-btn-text) !important;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none !important;
-  transition: all 0.3s ease;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
   box-shadow: var(--shadow-soft);
-  border: none;
+  border: 1px solid var(--color-accent-hover);
 }
 
-.project-link:hover {
+.project-link:hover,
+.project-link:focus {
   background: var(--color-accent-hover);
   color: var(--color-btn-text) !important;
   box-shadow: var(--shadow-hover);
@@ -176,6 +185,7 @@
 
   .project-link {
     padding: 0.7rem 1.2rem;
+    font-size: 0.98rem;
   }
 
   .random-section {

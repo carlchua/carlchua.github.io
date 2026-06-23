@@ -18,7 +18,7 @@ const Experience = () => {
                     <p className="duration">November 2025 - Present</p>
                     <ul className="description">
                         <li>
-                            Developed a full-stack RL evaluation platform for agent evaluation and benchmarking.
+                            Developed a full-stack <a href="https://labelbox.com/products/agent-studio/">RL evaluation platform</a> for agent evaluation and benchmarking.
                         </li>
                         <li>
                             Built a cross-platform video collection app and GCP processing pipeline for ego-centric robotics RL training videos.
@@ -26,7 +26,7 @@ const Experience = () => {
                     </ul>
                 </div>
                 <div className="section-item">
-                    <h3 className="sub-title">Applied AI Engineer</h3>
+                    <h3 className="sub-title">Software Engineer</h3>
                     <a
                         href="https://www.blackrock.com/us/individual"
                         className="company"
@@ -43,10 +43,13 @@ const Experience = () => {
                             Copilot, with over 98% query routing accuracy
                         </li>
                         <li>
-                            Implemented Retrieval-Augmented Generation (RAG)
-                            pipelines. Processed and cleaned data to enhance
-                            synthetic data generation for fine-tuning embedding
-                            models, speeding up training by 15%
+                            Implemented RAG-based plugins.
+                            Processed and cleaned data to enhance synthetic data generation
+                            for fine-tuning embedding models, speeding up training by 15%.
+                        </li>
+                        <li>
+                            Added internal agent observability by logging Langchain
+                            execution traces to Grafana, with PII filtering.
                         </li>
                     </ul>
                 </div>
