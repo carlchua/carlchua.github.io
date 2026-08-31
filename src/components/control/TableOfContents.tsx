@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -10,70 +10,104 @@ const sections = [
     { id: 'random-stuff', label: 'Random' },
 ];
 
+const MOBILE_NAV_ID = 'mobile-nav';
+
+function getMobileNavOffset() {
+    const nav = document.getElementById(MOBILE_NAV_ID);
+    return nav ? nav.getBoundingClientRect().height + 8 : 72;
+}
+
+function getActiveSectionFromScroll() {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const viewportBottom = window.scrollY + window.innerHeight;
+
+    if (viewportBottom >= scrollHeight - 12) {
+        return sections[sections.length - 1].id;
+    }
+
+    const scrollMarker = window.scrollY + getMobileNavOffset() + 16;
+    let currentSection = sections[0].id;
+
+    for (const section of sections) {
+        const element = document.querySelector(
+            `[data-section="${section.id}"]`
+        ) as HTMLElement | null;
+        if (!element) continue;
+
+        const sectionTop =
+            element.getBoundingClientRect().top + window.scrollY;
+        if (sectionTop <= scrollMarker) {
+            currentSection = section.id;
+        }
+    }
+
+    return currentSection;
+}
+
 export default function TableOfContents() {
     const [activeSection, setActiveSection] = useState('intro');
+    const activeSectionRef = useRef(activeSection);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const sectionElements = sections
-                .map((section) =>
-                    document.querySelector(`[data-section="${section.id}"]`)
-                )
-                .filter((el): el is Element => Boolean(el));
+        activeSectionRef.current = activeSection;
+    }, [activeSection]);
 
-            if (sectionElements.length === 0) return;
+    useEffect(() => {
+        let ticking = false;
 
-            const scrollPosition = window.scrollY + window.innerHeight / 3;
-            let currentSection = 'intro';
-
-            for (let i = 0; i < sectionElements.length; i++) {
-                const section = sectionElements[i];
-                const htmlSection = section as HTMLElement;
-                const sectionTop = htmlSection.offsetTop;
-                const sectionBottom = sectionTop + htmlSection.offsetHeight;
-
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    currentSection = section.getAttribute('data-section') ?? 'intro';
-                    break;
-                }
-
-                if (i === sectionElements.length - 1 && scrollPosition >= sectionTop) {
-                    currentSection = section.getAttribute('data-section') ?? 'intro';
-                }
+        const updateActiveSection = () => {
+            ticking = false;
+            const nextSection = getActiveSectionFromScroll();
+            if (nextSection !== activeSectionRef.current) {
+                setActiveSection(nextSection);
             }
-
-            if (
-                window.innerHeight + window.scrollY >=
-                document.body.offsetHeight - 10
-            ) {
-                currentSection = 'random-stuff';
-            }
-
-            setActiveSection(currentSection);
         };
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
+        const onScroll = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(updateActiveSection);
+            }
+        };
 
-        return () => window.removeEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        updateActiveSection();
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+        };
     }, []);
 
     const scrollToSection = useCallback((sectionId: string) => {
-        const element = document.querySelector(`[data-section="${sectionId}"]`);
-        if (element) {
-            const offsetTop = (element as HTMLElement).offsetTop - 88;
-            window.scrollTo({
-                top: Math.max(0, offsetTop),
-                behavior: 'smooth',
-            });
-            setActiveSection(sectionId);
-        }
+        const element = document.querySelector(
+            `[data-section="${sectionId}"]`
+        );
+        if (!element) return;
+
+        const offsetTop =
+            element.getBoundingClientRect().top +
+            window.scrollY -
+            getMobileNavOffset();
+
+        window.scrollTo({
+            top: Math.max(0, offsetTop),
+            behavior: window.matchMedia('(max-width: 767px)').matches
+                ? 'auto'
+                : 'smooth',
+        });
+        setActiveSection(sectionId);
     }, []);
 
     return (
-        <nav aria-label="On this page" className="z-40">
-            <div className="fixed top-0 right-0 left-0 border-b border-border/80 bg-background/80 px-4 py-3 backdrop-blur-md md:hidden">
-                <div className="flex gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <nav aria-label="On this page">
+            <div
+                id={MOBILE_NAV_ID}
+                className="fixed inset-x-0 top-0 z-[100] border-b border-border bg-background pt-[env(safe-area-inset-top,0px)] md:hidden"
+                style={{ transform: 'translateZ(0)' }}
+            >
+                <div className="flex gap-1 overflow-x-auto overscroll-x-contain px-4 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [touch-action:pan-x] [&::-webkit-scrollbar]:hidden">
                     {sections.map((section) => (
                         <button
                             key={section.id}
@@ -92,7 +126,7 @@ export default function TableOfContents() {
                 </div>
             </div>
 
-            <div className="fixed top-1/2 left-6 hidden w-36 -translate-y-1/2 md:block lg:left-8">
+            <div className="fixed top-1/2 left-6 z-40 hidden w-36 -translate-y-1/2 md:block lg:left-8">
                 <div className="relative ml-1.5 border-l border-border">
                     {sections.map((section) => {
                         const isActive = activeSection === section.id;

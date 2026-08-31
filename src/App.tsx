@@ -44,13 +44,15 @@ function AppShell() {
     };
 
     return (
-        <div className="relative min-h-svh overflow-x-hidden">
+        <div className="relative min-h-svh">
             <ThemeToggle darkMode={darkMode} toggleTheme={toggleTheme} />
             {isHome ? <TableOfContents /> : null}
             <main
                 className={cn(
                     'mx-auto w-full max-w-3xl px-5 pb-8 md:max-w-[52rem] md:pr-10',
-                    isHome ? 'pt-20 md:pt-16 md:pl-48 lg:pl-52' : 'pt-10 md:pl-10'
+                    isHome
+                        ? 'pt-[calc(3.75rem+env(safe-area-inset-top,0px))] md:pt-16 md:pl-48 lg:pl-52'
+                        : 'pt-10 md:pl-10'
                 )}
             >
                 <Routes>
