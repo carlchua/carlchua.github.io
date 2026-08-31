@@ -1,43 +1,46 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState, type TouchEvent } from 'react';
 import { Shake } from 'reshake';
-import '../../styles/game/PaperButton.css';
-import '../../styles/game/PaperAnimal.css';
+
+import '@/styles/game/PaperButton.css';
+import '@/styles/game/PaperAnimal.css';
 
 export const animalDict = {
     crane: {
         movement_frames: 14,
         play_frames: 10,
         play_color: '#00d9ffff',
-        shake: true
+        shake: true,
     },
 };
 
-export default function PaperAnimal({ type, x_pos, y_pos }) {
+type AnimalName = keyof typeof animalDict;
+
+export default function PaperAnimal({
+    type,
+    x_pos,
+    y_pos,
+}: {
+    type: AnimalName;
+    x_pos: number;
+    y_pos: number;
+}) {
     const [currentFrame, setCurrentFrame] = useState(0);
     const [currentPlayFrame, setCurrentPlayFrame] = useState(0);
-
-    const [translate, setTranslate] = useState({
-        x: x_pos,
-        y: y_pos,
+    const [translate, setTranslate] = useState({ x: x_pos, y: y_pos });
+    const [isPlaying, setIsPlaying] = useState(false);
+    const timeoutRef = useRef<number | null>(null);
+    const intervalRef = useRef<number | null>(null);
+    const totalPlayFrames = animalDict[type].play_frames;
+    const [velocity, setVelocity] = useState({
+        x: Math.random() < 0.5 ? -Math.random() * 2 - 1 : Math.random() * 2 + 1,
+        y: (Math.random() - 0.5) * 4,
     });
 
-    const [isPlaying, setIsPlaying] = useState(false);
-
-    const timeoutRef = useRef(null);
-    const intervalRef = useRef(null);
-
-    const totalPlayFrames = animalDict[type].play_frames;
-
-    ///////////////////////// PLAY CODE /////////////////////////////
     const startPlay = () => {
         if (!isPlaying) {
             setIsPlaying(true);
-            console.log(`${currentImageSrc}`);
-            
-            intervalRef.current = setInterval(() => {
-                setCurrentPlayFrame(
-                    (prevFrame) => (prevFrame + 1) % totalPlayFrames
-                );
+            intervalRef.current = window.setInterval(() => {
+                setCurrentPlayFrame((prevFrame) => (prevFrame + 1) % totalPlayFrames);
             }, 100);
         }
     };
@@ -49,20 +52,17 @@ export default function PaperAnimal({ type, x_pos, y_pos }) {
                 clearInterval(intervalRef.current);
                 intervalRef.current = null;
             }
-            // Reset to first frame after stopping
-            setTimeout(() => setCurrentPlayFrame(0), 100);
+            window.setTimeout(() => setCurrentPlayFrame(0), 100);
         }
     };
 
     const handleMouseDown = () => {
-        // Start animation after a short delay (long press)
-        timeoutRef.current = setTimeout(() => {
+        timeoutRef.current = window.setTimeout(() => {
             startPlay();
         }, 1);
     };
 
     const handleMouseUp = () => {
-        // Clear the timeout if mouse up happens before long press
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
@@ -70,81 +70,52 @@ export default function PaperAnimal({ type, x_pos, y_pos }) {
         stopPlay();
     };
 
-    const handleMouseLeave = () => {
-        // Stop animation if mouse leaves button
-        handleMouseUp();
-    };
-
-    // Touch events for mobile
-    const handleTouchStart = (e) => {
+    const handleTouchStart = (e: TouchEvent) => {
         e.preventDefault();
         handleMouseDown();
     };
 
-    const handleTouchEnd = (e) => {
+    const handleTouchEnd = (e: TouchEvent) => {
         e.preventDefault();
         handleMouseUp();
     };
 
-    // Cleanup on unmount
     useEffect(() => {
         return () => {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-            }
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
+            if (intervalRef.current) clearInterval(intervalRef.current);
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
         };
     }, []);
-    //////////////////////////////////////////////////////////////////
 
-    //////////////////////  MOVEMENT CODE  ///////////////////////////
-    // Random initial direction and speed
-    const [velocity, setVelocity] = useState({
-        // Move faster in the x direction
-        x: Math.random() < 0.5 
-            ? -Math.random() * 2 - 1
-            : Math.random() * 2 + 1,
-        y: (Math.random() - 0.5) * 4,
-    });
-
-    // Continuous movement with bouncing
     useEffect(() => {
         const animate = () => {
-            // Only move if not playing
             if (!isPlaying) {
                 setTranslate((prev) => {
                     let newX = prev.x + velocity.x;
                     let newY = prev.y + velocity.y;
                     let newVelX = velocity.x;
                     let newVelY = velocity.y;
-
-                    // Get actual viewport dimensions
                     const viewportWidth = window.innerWidth;
                     const viewportHeight = window.innerHeight;
                     const spriteWidth = 80;
                     const spriteHeight = 80;
 
-                    // Bounce off left and right edges
                     if (newX <= 0) {
-                        newVelX = Math.abs(newVelX); // Force positive
+                        newVelX = Math.abs(newVelX);
                         newX = 0;
                     } else if (newX >= viewportWidth - spriteWidth) {
-                        newVelX = -Math.abs(newVelX); // Force negative
+                        newVelX = -Math.abs(newVelX);
                         newX = viewportWidth - spriteWidth;
                     }
 
-                    // Bounce off top and bottom edges
                     if (newY <= 0) {
-                        newVelY = Math.abs(newVelY); // Force positive
+                        newVelY = Math.abs(newVelY);
                         newY = 0;
                     } else if (newY >= viewportHeight - spriteHeight) {
-                        newVelY = -Math.abs(newVelY); // Force negative
+                        newVelY = -Math.abs(newVelY);
                         newY = viewportHeight - spriteHeight;
                     }
 
-                    // Update velocity if it changed
                     if (newVelX !== velocity.x || newVelY !== velocity.y) {
                         setVelocity({ x: newVelX, y: newVelY });
                     }
@@ -152,18 +123,13 @@ export default function PaperAnimal({ type, x_pos, y_pos }) {
                     return { x: newX, y: newY };
                 });
 
-                // Cycle through animation frames
-                setCurrentFrame(
-                    (prev) => (prev + 1) % animalDict[type].movement_frames
-                );
+                setCurrentFrame((prev) => (prev + 1) % animalDict[type].movement_frames);
             }
         };
 
-        const interval = setInterval(animate, 80); // Update every 50ms for smooth movement
-
+        const interval = window.setInterval(animate, 80);
         return () => clearInterval(interval);
     }, [velocity, type, isPlaying]);
-    ////////////////////////////////////////////////////////////////////////////////////////
 
     const currentImageSrc = isPlaying
         ? `/assets/game/${type}/${type}_play_${currentPlayFrame}.png`
@@ -177,35 +143,36 @@ export default function PaperAnimal({ type, x_pos, y_pos }) {
                 left: 0,
                 transform: `translate(${translate.x}px, ${translate.y}px)`,
                 zIndex: 1000,
-                pointerEvents: 'none', // Don't interfere with page interactions
+                pointerEvents: 'none',
             }}
         >
             <button
                 className={`paper-button ${isPlaying ? 'playing' : ''}`}
-                style={{ pointerEvents: 'auto' }} // Enable interactions on the button
+                style={{ pointerEvents: 'auto' }}
+                type="button"
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseLeave}
+                onMouseLeave={handleMouseUp}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
             >
                 <Shake
-                    h={animalDict[type].shake && isPlaying ? 0 : 0}  
-                    v={animalDict[type].shake && isPlaying ? 20 : 0}  
-                    r={animalDict[type].shake && isPlaying ? 20 : 0}  
-                    dur={1500}    // Duration of each shake
-                    int={20}     // Interval between shakes  
-                    max={100}    // Max number of shakes
-                    fixed={false} // Don't use fixed positioning
+                    h={0}
+                    v={animalDict[type].shake && isPlaying ? 20 : 0}
+                    r={animalDict[type].shake && isPlaying ? 20 : 0}
+                    dur={1500}
+                    int={20}
+                    max={100}
+                    fixed={false}
                 >
                     <img
                         src={currentImageSrc}
-                        alt={`${type}`}
+                        alt={type}
                         className="paper-sprite"
                         draggable={false}
                         style={{
-                            transform: velocity.x < 0 ? 'scaleX(-1)' : 'scaleX(1)', // Flip when moving left
-                            transition: 'transform 0.1s ease', // Smooth flip transition
+                            transform: velocity.x < 0 ? 'scaleX(-1)' : 'scaleX(1)',
+                            transition: 'transform 0.1s ease',
                             animation: isPlaying
                                 ? 'playingBounce 0.5s ease-in-out infinite alternate'
                                 : 'none',
