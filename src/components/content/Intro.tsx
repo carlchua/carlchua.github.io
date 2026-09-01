@@ -1,36 +1,27 @@
-import { FileText, FolderGit2, IdCard, Mail } from 'lucide-react';
 import type { CSSProperties } from 'react';
 
+import LinkButton from '@/components/common/LinkButton';
 import { ShimmeringText } from '@/components/shimmering-text';
-import { Button } from '@/components/ui/button';
 import { Section } from '@/components/content/Section';
 
 const links = [
     {
         href: '/assets/docs/resume.pdf',
         label: 'Resume',
-        icon: FileText,
-        primary: true,
     },
     {
         href: 'https://github.com/carlchua',
         label: 'GitHub',
-        icon: FolderGit2,
-        primary: false,
     },
     {
         href: 'mailto:carllenard.chua@gmail.com',
         label: 'Email',
-        icon: Mail,
-        primary: false,
     },
     {
         href: 'https://www.linkedin.com/in/carl-chua/',
         label: 'LinkedIn',
-        icon: IdCard,
-        primary: false,
     },
-] as const;
+];
 
 export default function Intro({ darkMode }: { darkMode: boolean }) {
     return (
@@ -61,26 +52,14 @@ export default function Intro({ darkMode }: { darkMode: boolean }) {
                 you have recs for a good Malaysian restaurant).
             </p>
             <div className="flex flex-wrap gap-2.5">
-                {links.map(({ href, label, icon: Icon, primary }) => (
-                    <Button
-                        key={label}
-                        asChild
-                        variant={primary ? 'default' : 'outline'}
+                {links.map((link) => (
+                    <LinkButton
+                        key={link.label}
+                        href={link.href}
+                        label={link.label}
+                        darkMode={darkMode}
                         size="lg"
-                    >
-                        <a
-                            href={href}
-                            target={href.startsWith('mailto:') ? undefined : '_blank'}
-                            rel={
-                                href.startsWith('mailto:')
-                                    ? undefined
-                                    : 'noopener noreferrer'
-                            }
-                        >
-                            <Icon data-icon="inline-start" />
-                            {label}
-                        </a>
-                    </Button>
+                    />
                 ))}
             </div>
         </Section>

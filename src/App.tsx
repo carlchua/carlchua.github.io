@@ -51,7 +51,7 @@ function AppShell() {
                 className={cn(
                     'mx-auto w-full max-w-3xl px-5 pb-8 md:max-w-[52rem] md:pr-10',
                     isHome
-                        ? 'pt-[calc(3.75rem+env(safe-area-inset-top,0px))] md:pt-16 md:pl-48 lg:pl-52'
+                        ? 'pt-10 md:pt-16 md:pl-48 lg:pl-52'
                         : 'pt-10 md:pl-10'
                 )}
             >
@@ -63,7 +63,7 @@ function AppShell() {
                                 <Intro darkMode={darkMode} />
                                 <Experience />
                                 <Education />
-                                <Projects />
+                                <Projects darkMode={darkMode} />
                                 <RandomStuff />
                             </>
                         }

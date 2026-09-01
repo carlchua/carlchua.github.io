@@ -1,6 +1,4 @@
-import { FileText, FolderGit2 } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
+import LinkButton from '@/components/common/LinkButton';
 import {
     Card,
     CardDescription,
@@ -10,7 +8,16 @@ import {
 } from '@/components/ui/card';
 import { Section, SectionHeading } from '@/components/content/Section';
 
-const projects = [
+type ProjectLink = {
+    href: string;
+    label: string;
+};
+
+const projects: {
+    title: string;
+    description: string;
+    links: ProjectLink[];
+}[] = [
     {
         title: 'Dynamic Obstacles Avoidance in Coverage Path Planning Via Deep Reinforcement Learning',
         description:
@@ -19,12 +26,10 @@ const projects = [
             {
                 href: '/assets/docs/cs285_paper.pdf',
                 label: 'Paper',
-                icon: FileText,
             },
             {
                 href: 'https://github.com/carlchua/cs285_rl_files',
                 label: 'GitHub',
-                icon: FolderGit2,
             },
         ],
     },
@@ -35,16 +40,15 @@ const projects = [
             {
                 href: 'https://github.com/carlchua/nbapredictor',
                 label: 'GitHub',
-                icon: FolderGit2,
             },
         ],
     },
 ];
 
-export default function Projects() {
+export default function Projects({ darkMode }: { darkMode: boolean }) {
     return (
         <Section id="projects">
-            <SectionHeading eyebrow="Selected">Projects</SectionHeading>
+            <SectionHeading>Projects</SectionHeading>
             <div className="grid gap-5 md:grid-cols-2">
                 {projects.map((project) => (
                     <Card
@@ -60,17 +64,13 @@ export default function Projects() {
                             </CardDescription>
                         </CardHeader>
                         <CardFooter className="mt-auto gap-2 border-t-0 bg-transparent">
-                            {project.links.map(({ href, label, icon: Icon }) => (
-                                <Button key={label} asChild variant="outline" size="sm">
-                                    <a
-                                        href={href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <Icon data-icon="inline-start" />
-                                        {label}
-                                    </a>
-                                </Button>
+                            {project.links.map((link) => (
+                                <LinkButton
+                                    key={link.label}
+                                    href={link.href}
+                                    label={link.label}
+                                    darkMode={darkMode}
+                                />
                             ))}
                         </CardFooter>
                     </Card>

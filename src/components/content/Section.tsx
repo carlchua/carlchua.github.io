@@ -15,7 +15,7 @@ export function Section({
         <section
             data-section={id}
             id={id}
-            className={cn('scroll-mt-[calc(3.75rem+env(safe-area-inset-top,0px))] py-16 md:scroll-mt-10 md:py-20', className)}
+            className={cn('scroll-mt-10 py-16 md:py-20', className)}
         >
             {children}
         </section>

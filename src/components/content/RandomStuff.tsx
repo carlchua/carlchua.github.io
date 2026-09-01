@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 import PaperAnimal, { animalDict } from '@/components/game/PaperAnimal';
 import PaperButton from '@/components/game/PaperButton';
-import { Section } from '@/components/content/Section';
+import { Section, SectionHeading } from '@/components/content/Section';
 
 type AnimalName = keyof typeof animalDict;
 
@@ -50,6 +50,7 @@ export default function RandomStuff() {
 
     return (
         <Section id="random-stuff" className="pb-24">
+            <SectionHeading>Random Stuff</SectionHeading>
             <div className="flex justify-center">
                 <PaperButton onSpawn={spawnAnimal} />
             </div>

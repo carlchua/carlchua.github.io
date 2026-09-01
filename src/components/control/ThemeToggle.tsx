@@ -8,7 +8,7 @@ export default function ThemeToggle({
     toggleTheme: () => void;
 }) {
     return (
-        <div className="fixed top-4 right-4 z-[110] max-md:top-auto max-md:right-4 max-md:bottom-4">
+        <div className="fixed top-[calc(1rem+env(safe-area-inset-top,0px))] right-4 z-[110]">
             <button
                 type="button"
                 onClick={toggleTheme}

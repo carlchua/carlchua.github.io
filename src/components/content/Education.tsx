@@ -4,7 +4,7 @@ import { Section, SectionHeading } from '@/components/content/Section';
 export default function Education() {
     return (
         <Section id="education">
-            <SectionHeading eyebrow="School">Education</SectionHeading>
+            <SectionHeading>Education</SectionHeading>
             <Card>
                 <CardHeader>
                     <CardTitle className="font-heading text-lg md:text-xl">

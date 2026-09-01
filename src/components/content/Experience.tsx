@@ -43,7 +43,7 @@ const roles = [
             <>
                 Implemented RAG-based plugins. Processed and cleaned data to
                 enhance synthetic data generation for fine-tuning embedding
-                models, speeding up training by 15%.
+                models, speeding up pipelines by 15%.
             </>,
             <>
                 Added internal agent observability by logging Langchain
@@ -69,7 +69,7 @@ const roles = [
 export default function Experience() {
     return (
         <Section id="experience">
-            <SectionHeading eyebrow="Work">Experience</SectionHeading>
+            <SectionHeading>Experience</SectionHeading>
             <ol className="relative space-y-6 border-l border-border pl-6 md:pl-8">
                 {roles.map((role) => (
                     <li key={role.company} className="relative">
