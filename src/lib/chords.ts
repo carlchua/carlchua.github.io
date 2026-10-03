@@ -62,8 +62,8 @@ export function loadChordsByName(): Promise<ChordsByNameData> {
     if (!byNamePromise) {
         byNamePromise = fetchJson<ChordsByNameData>('/data/chords-by-name.json').then(
             (data) => {
-                byNameCache = data;
-                return data;
+                byNameCache = expandEnharmonicCopies(data);
+                return byNameCache;
             }
         );
     }
@@ -102,20 +102,128 @@ export function findPositions(
     return data.byId[id];
 }
 
-/** Normalize user input for chord name matching. */
-export function normalizeChordQuery(query: string): string {
-    return query.trim().toLowerCase().replace(/\s+/g, '');
+/** Sharp → flat spellings for roots / slash bass notes. */
+const SHARP_TO_FLAT: Record<string, string> = {
+    'C#': 'Db',
+    'D#': 'Eb',
+    'F#': 'Gb',
+    'G#': 'Ab',
+    'A#': 'Bb',
+};
+
+const KEY_ORDER = [
+    'C',
+    'C#',
+    'Db',
+    'D',
+    'D#',
+    'Eb',
+    'E',
+    'F',
+    'F#',
+    'Gb',
+    'G',
+    'G#',
+    'Ab',
+    'A',
+    'A#',
+    'Bb',
+    'B',
+];
+
+function displayChordName(key: string, suffix: string): string {
+    if (suffix === 'major') return key;
+    if (suffix === 'minor') return `${key}m`;
+    return `${key}${suffix}`;
 }
 
-/** Aliases that should resolve to a chord (e.g. C, Cmajor, C major → C major). */
+/** Rewrite only the pitch after `/` (qualities like maj#11 stay untouched). */
+function rewriteSlashBass(
+    suffix: string,
+    noteMap: Record<string, string>
+): string {
+    const slashAt = suffix.indexOf('/');
+    if (slashAt < 0) return suffix;
+    const quality = suffix.slice(0, slashAt);
+    const bass = suffix.slice(slashAt + 1);
+    return `${quality}/${noteMap[bass] ?? bass}`;
+}
+
+/**
+ * Add flat-spelling copies of sharp-key chords that share the same positions.
+ * Searching/selecting Db5 shows title "Db5" with C#5 fingerings.
+ */
+export function expandEnharmonicCopies(
+    data: ChordsByNameData
+): ChordsByNameData {
+    const byId: Record<string, ChordEntry> = { ...data.byId };
+    const suffixesByKey: Record<string, string[]> = {};
+
+    for (const [key, suffixes] of Object.entries(data.suffixesByKey)) {
+        suffixesByKey[key] = [...suffixes];
+    }
+
+    for (const entry of Object.values(data.byId)) {
+        const flatKey = SHARP_TO_FLAT[entry.key];
+        if (!flatKey) continue;
+
+        const flatSuffix = rewriteSlashBass(entry.suffix, SHARP_TO_FLAT);
+        const id = `${flatKey}:${flatSuffix}`;
+        if (byId[id]) continue;
+
+        byId[id] = {
+            id,
+            key: flatKey,
+            suffix: flatSuffix,
+            name: displayChordName(flatKey, flatSuffix),
+            positions: entry.positions,
+        };
+
+        if (!suffixesByKey[flatKey]) suffixesByKey[flatKey] = [];
+        if (!suffixesByKey[flatKey].includes(flatSuffix)) {
+            suffixesByKey[flatKey].push(flatSuffix);
+        }
+    }
+
+    for (const key of Object.keys(suffixesByKey)) {
+        suffixesByKey[key].sort((a, b) => a.localeCompare(b));
+    }
+
+    const keys = KEY_ORDER.filter((key) => suffixesByKey[key]?.length);
+    for (const key of Object.keys(suffixesByKey).sort()) {
+        if (!keys.includes(key)) keys.push(key);
+    }
+
+    return {
+        ...data,
+        meta: {
+            ...data.meta,
+            chordCount: Object.keys(byId).length,
+        },
+        keys,
+        suffixesByKey,
+        byId,
+    };
+}
+
+/** Normalize user input for chord name matching. */
+export function normalizeChordQuery(query: string): string {
+    return query
+        .trim()
+        .toLowerCase()
+        .replace(/♯/g, '#')
+        .replace(/♭/g, 'b')
+        .replace(/\s+/g, '');
+}
+
+/** Aliases for a specific spelling (e.g. C / Cmajor, Db / Dbmajor). */
 export function chordSearchAliases(entry: ChordEntry): string[] {
     const key = entry.key.toLowerCase();
     const suffix = entry.suffix.toLowerCase();
     const name = entry.name.toLowerCase();
     const aliases = new Set<string>([
-        name,
         normalizeChordQuery(name),
-        `${key}${suffix}`,
+        normalizeChordQuery(`${key}${suffix}`),
         normalizeChordQuery(`${key} ${suffix}`),
     ]);
 

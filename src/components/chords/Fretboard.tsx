@@ -61,12 +61,7 @@ export default function Fretboard({
 
     const toggleMute = (stringIdx: number) => {
         if (readOnly || !onChange) return;
-        // Mute is represented as null with a dedicated "muted" flag via
-        // treating null as mute when user explicitly mutes; open is 0.
-        // We use a sentinel: click mute sets null; if already null and
-        // was "intentionally muted", we need distinction...
         // Convention: null = muted; 0 = open; >0 = fretted.
-        // Empty start state is all null (muted). Toggle mute: if fretted/open → mute; if mute → open.
         const current = pattern[stringIdx];
         if (current === null) {
             setString(stringIdx, 0);
@@ -74,6 +69,23 @@ export default function Fretboard({
             setString(stringIdx, null);
         }
     };
+
+    /** Capo: place (or clear) the same fret on every string. */
+    const applyCapo = (fret: number) => {
+        if (readOnly || !onChange || fret < 1) return;
+        const alreadyCapoed = pattern.every((value) => value === fret);
+        onChange(
+            alreadyCapoed
+                ? Array.from({ length: STRING_COUNT }, () => 0)
+                : Array.from({ length: STRING_COUNT }, () => fret)
+        );
+    };
+
+    const capoFret = (() => {
+        const first = pattern[0];
+        if (first === null || first < 1) return null;
+        return pattern.every((value) => value === first) ? first : null;
+    })();
 
     return (
         <div className={cn('w-full select-none', className)}>
@@ -85,17 +97,50 @@ export default function Fretboard({
                         : `1.75rem 1.5rem repeat(${frets.length}, minmax(0, 1fr))`,
                 }}
             >
-                {/* Header: fret numbers */}
+                {/* Header: fret numbers (clickable capo on interactive boards) */}
                 <div />
                 {!compact ? <div /> : null}
-                {frets.map((fret) => (
-                    <div
-                        key={`h-${fret}`}
-                        className="pb-1 text-center text-[0.65rem] text-muted-foreground"
-                    >
-                        {fret === 0 ? 'empty' : fret}
-                    </div>
-                ))}
+                {frets.map((fret) => {
+                    const isCapoHeader = !readOnly && !compact && fret > 0;
+                    const isActiveCapo = capoFret === fret;
+
+                    if (!isCapoHeader) {
+                        return (
+                            <div
+                                key={`h-${fret}`}
+                                className="pb-1 text-center text-[0.65rem] text-muted-foreground"
+                            >
+                                {fret === 0 ? 'empty' : fret}
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <button
+                            key={`h-${fret}`}
+                            type="button"
+                            onClick={() => applyCapo(fret)}
+                            aria-label={
+                                isActiveCapo
+                                    ? `Remove capo at fret ${fret}`
+                                    : `Place capo at fret ${fret}`
+                            }
+                            title={
+                                isActiveCapo
+                                    ? `Remove capo at fret ${fret}`
+                                    : `Capo fret ${fret}`
+                            }
+                            className={cn(
+                                'pb-1 text-center text-[0.65rem] transition-colors',
+                                isActiveCapo
+                                    ? 'font-semibold text-foreground'
+                                    : 'text-muted-foreground hover:text-foreground'
+                            )}
+                        >
+                            {fret}
+                        </button>
+                    );
+                })}
 
                 {STRING_LABELS.map((label, row) => {
                     const idx = dataIndex(row);

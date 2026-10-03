@@ -190,8 +190,10 @@ export default function ChordFinder() {
                     ) : (
                         <>
                             <p className="mb-3 text-sm text-muted-foreground">
-                                Click frets to place fingers. Use × to mute a
-                                string, or the empty column for open strings.
+                                Click frets to place fingers. Click a fret
+                                number (1–12) to capo every string at that fret.
+                                Use × to mute a string, or the empty column for
+                                open strings.
                             </p>
                             <Fretboard
                                 pattern={pattern}
