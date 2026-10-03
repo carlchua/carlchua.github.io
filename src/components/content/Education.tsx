@@ -5,7 +5,7 @@ export default function Education() {
     return (
         <Section id="education">
             <SectionHeading>Education</SectionHeading>
-            <Card>
+            <Card className="transition-transform duration-300 hover:-translate-y-0.5">
                 <CardHeader>
                     <CardTitle className="font-heading text-lg md:text-xl">
                         University of California, Berkeley

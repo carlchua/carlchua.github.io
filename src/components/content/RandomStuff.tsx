@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import PaperAnimal, { animalDict } from '@/components/game/PaperAnimal';
 import PaperButton from '@/components/game/PaperButton';
@@ -51,8 +52,18 @@ export default function RandomStuff() {
     return (
         <Section id="random-stuff" className="pb-24">
             <SectionHeading>Random Stuff</SectionHeading>
-            <div className="flex justify-center">
-                <PaperButton onSpawn={spawnAnimal} />
+            <div className="grid items-start gap-5 md:grid-cols-2">
+                <div className="flex justify-center md:justify-start">
+                    <PaperButton onSpawn={spawnAnimal} />
+                </div>
+                <div className="flex items-center justify-center md:justify-start md:pt-8">
+                    <Link
+                        to="/chord-finder"
+                        className="font-heading text-xl text-foreground underline-offset-4 transition-colors hover:text-primary hover:underline md:text-2xl"
+                    >
+                        Chord Tool
+                    </Link>
+                </div>
             </div>
             {currentAnimals.map((animal) => (
                 <PaperAnimal
