@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import NotFound from '@/components/common/NotFound';
+import ChordFinder from '@/components/content/ChordFinder';
 import Education from '@/components/content/Education';
 import Experience from '@/components/content/Experience';
 import Intro from '@/components/content/Intro';
@@ -68,6 +69,7 @@ function AppShell() {
                             </>
                         }
                     />
+                    <Route path="/chord-finder" element={<ChordFinder />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
