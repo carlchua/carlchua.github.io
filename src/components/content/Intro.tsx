@@ -44,12 +44,10 @@ export default function Intro({ darkMode }: { darkMode: boolean }) {
                 />
             </h1>
             <p className="mb-10 max-w-xl text-base leading-relaxed text-foreground md:text-lg">
-                I enjoy learning about cutting-edge advances in Artificial
-                Intelligence and Machine Learning. At work, I specialize in
-                implementing them on scalable & reliable platforms. When I&apos;m
-                not on my computer, I like to snowboard, play guitar/sax, and
-                try out new restaurants around the bay (please let me know if
-                you have recs for a good Malaysian restaurant).
+                I'm a software engineer interested in building cool things and learning how things work.
+                Outside of tech, I like to snowboard, play guitar/sax, and
+                try out new restaurants to add to my Beli. I'm also learning how to play tennis, if you
+                have any advice on how to hit a one handed backhand, please reach out.
             </p>
             <div className="flex flex-wrap gap-2.5">
                 {links.map((link) => (
